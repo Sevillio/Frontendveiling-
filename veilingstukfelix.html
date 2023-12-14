@@ -40,6 +40,33 @@
 	  font-size: 30px;
 	}
 		</style>
+		<script>
+			function toonVeilingStukken(){
+				console.log("toonVeilingStukken");
+				document.getElementById("veilingstukkenlijst").innerHTML = "hoi";
+				fetch("https://localhost:7252/api/veilingstuk")
+//				fetch("http://20.8.8.232/api/veilingstuk")
+				.then(r => r.json() )
+				.then( d => toonStukkenInDom(d) )
+			}
+			function toonStukkenInDom(data){
+				let dataString = ``
+				for(let x = 0 ;x < data.length;x++){
+					//dataString += `<div class="datastukdiv">${data[x].stukName} - ${data[x].aanbieder} - ${data[x].categorie} - ${data[x].beschrijving}</div>`
+					dataString += `
+					<div class="card" style="width: 18rem;">
+					<img class="card-img-top" src="images/${data[x].image}" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">${data[x].stukName}</h5>
+						<p class="card-text">${data[x].beschrijving}</p>
+						<a href="#" class="btn btn-primary">${data[x].aanbieder}</a>
+					</div>
+					</div>
+`
+				}
+				document.getElementById("veilingstukkenlijst").innerHTML = dataString;
+			}
+		</script>
 	</head>
 	<body>
 	
@@ -52,92 +79,8 @@
 			<div class="col-xl-6"><a href="#">VeilingStukken</a></div>
 		</div>
 		<div class="grid-container">
-			
-			<form>
-				<div class="row mb-3">
-				  <label for="InvoerStukName" class="col-sm-2 col-form-label">Name stuk: </label>
-				  <div class="col-sm-10">
-					<input type="text" class="form-control" id="InvoerStukName">
-				  </div>
-				</div>
-				<div class="row mb-3">
-					<label for="InvoerDatum" class="col-sm-2 col-form-label">Datum : </label>
-					<div class="col-sm-10">
-					  <input type="datetime" class="form-control" id="InvoerDatum">
-					</div>
-				  </div>
-				<div class="row mb-3">
-				  <label for="InvoerOpeningsbod" class="col-sm-2 col-form-label">Openingsbod: </label>
-				  <div class="col-sm-10">
-					<input type="text" class="form-control" id="InvoerOpeningsbod">
-				  </div>
-				</div>
-				<div class="row mb-3">
-					<label for="InvoerMinimumbod" class="col-sm-2 col-form-label">Minimumbod: </label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="InvoerMinimumbod">
-					</div>
-				  </div>
-				<div class="row mb-3">
-					<label for="InvoerLaatstebod" class="col-sm-2 col-form-label">Laatstebod: </label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="InvoerLaatstebod">
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label for="InvoerDuratie" class="col-sm-2 col-form-label">Duratie: </label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="InvoerDuratie">
-					</div>
-				</div>
-
-					</div>
-				  </div>
-				</div>
+			<div class="grid-container">
 				
-			  </form>
-
-			  <div class="grid-container">
-					
-
-
-			  </div>
-
-			
-			<!--Duratie:<input type="text" id="InvoerDuratie"></input>
-			Openingsbod:<input type="text" id="InvoerOpeningsbod"></input>
-			Minimumbod:<input type="text" id="InvoerMinimumbod"></input>
-			Laatsebod:<input type="text" id="InvoerLaatstebod"></input>-->
-			
-			<div class="grid-container">
-				Name: <input type="text" id="InvoerName"></input>
-				Password: <input type="password" id="InvoerPassword"></input>
-				Email: <input type="text" id="InvoerEmail"></input>
-
-
-
-				
-			</div>
-
-
-            
-			<div class="grid-container">
-			Beschrijving :<input type="text" id="InvoerBeschrijving"></input>
-			Categorie:<input type="text" id="InvoerCategorie"></input>
-			Aanbieder:<input type="text" id="InvoerAanbieder"></input>
-			Gewicht:<input type="text" id="InvoerGewicht"></input>
-			Lengte:<input type="text" id="InvoerLengte"></input>
-			Width:<input type="text" id="InvoerWidth"></input>
-			Hoogte:<input type="text" id="InvoerHoogte"></input>
-			</div>
-
-
-			<div class="grid-container">
-				<button onclick="Toevoegen()">Add</button>
-			    <button  onclick="ToonVeiling()">Show veiling</button>
-				<button onclick="ToonVeilingstuk()">Show veilingstuk</button>
-
-				<button onclick="verwerkencsharp()" >Get</button>
 				</div>
 
 		    <div class="grid-container">
@@ -151,6 +94,7 @@
 
 			
 			</div>
+
 	      	<!--<button onclick="Toevoegen1()">Add</button>
 			<button  onclick="eventesten1()">push</button>
 			<button onclick="" >Get</button>
@@ -165,6 +109,10 @@
 			<!--<button id="Edit" onclick="" >Edit</button>-->
 			<!--<button id="Update" onclick="" >Update</button>-->
 			<!--<button id="Delete" onclick=""> Delete</button>-->
+		  </div>
+		  <button class="btn btn-danger" onclick="toonVeilingStukken()">Toon Alle Veilingstukken</button>
+		  <div id="veilingstukkenlijst">
+
 		  </div>
 	</body>
 </html>
