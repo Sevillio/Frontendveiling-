@@ -5,6 +5,19 @@ function getinfo()
                 .then (d => verwerkencsharp(d))
 }
 
+function verwerkencsharp3(data){
+    document.getElementById("csharpuitkomst3").innerHTML ="";
+    for(let x =0; x < data.length; x++){
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Name + "<br>";
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Email + "<br>";
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Password + "<br>";
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Telefoon + "<br>";
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Postcode + "<br>";
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Place + "<br>";
+        document.getElementById("csharpuitkomst3").innerHTML += data[x].Adress + "<br>";
+
+    }
+}
 function Accountadd()
 {
    
@@ -20,7 +33,7 @@ function Accountadd()
    account.Adress = document.getElementById("AdressSignup").value
 
    var accountjson= JSON.stringify(account);
-    console.log(veilingjson);
+    console.log(accountjson);
     fetch("https://localhost:7252/api/Account", {
         method:"POST",
         headers:{
@@ -31,7 +44,3 @@ function Accountadd()
 
 }
 
-function back()
-{
-
-}
