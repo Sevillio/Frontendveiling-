@@ -8,11 +8,12 @@ function eventesten1(){
                 .then (r => r.json())
                 .then (d => verwerkencsharp(d))
             }
-function eventesten2(){
-                fetch("https://localhost:7252/api/Account")
-                .then (r => r.json())
-                .then (d => verwerkencsharp(d))
-            }
+
+function eventesten3(){
+            fetch("https://localhost:7252/api/Bod")
+            .then(r => r.json())
+            .then (d => verwerkencsharp(d))
+}
             
             //function doen(data){
                // console.log(data);
@@ -173,28 +174,7 @@ function Toevoegen(){
     }) 
 }
 
-function Accounttoevoeging()
-{
-    console/log ("Account is gemaakt")
-    var account ={}
-    account.Name = document.getElementById("InvoerAccount").value;
-    account.Email = document.getElementById("InvoerEmail").value
-    account.Password = document.getElementById("Passwordsignup").value
-    account.Telefoon = document.getElementById("InvoerTelefoon").value
-    account.Postcode = document.getElementById("InvoerPostcode").value
-    account.Place = document.getElementById("InvoerPlace").value
-    account.Adress = document.getElementById("InvoerAdress").value
 
-    var accountjson= JSON.stringify(account);
-    console.log(veilingjson);
-    fetch("https://localhost:7252/api/Account", {
-        method:"POST",
-        headers:{
-            "Content-Type": 'application/json'
-        },
-        body: accountjson
-    }) 
-}
 
 
     /*function Toevoegen1(){

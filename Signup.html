@@ -21,6 +21,9 @@
     crossorigin="anonymous">
     </script>
 
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        
+
 </script>
     <style>
         body {font-family: Arial, Helvetica, sans-serif;}
@@ -65,7 +68,7 @@ button:hover {
 /* Extra styles for the cancel button */
 .cancelbtn {
   padding: 14px 20px;
-  background-color: #f44336;
+  background-color: #a80000;
 }
 
 /* Float cancel and signup buttons and add an equal width */
@@ -96,7 +99,7 @@ button:hover {
     </style>
 </head>
 <body>
-    <form action="https://localhost:7252/api/Account" style="border:1px solid #ccc">
+  
         <div class="container">
           <h1>Sign Up</h1>
           <p>Please fill in this form to create an account.</p>
@@ -106,7 +109,7 @@ button:hover {
           <input type="text" placeholder="Enter Email" name="email" id="EmailSignup" required >
 
           <lable for="Name"><b>Name</b></lable>
-          <input type="text" placeholder="Enter Name" name="name" id="NameSignup" required > 
+          <input type="text" placeholder="Enter Name" name="Name" id="NameSignup" required > 
 
           <lable for="Telefoon"><b>Telefoon</b></lable>
           <input type="text" placeholder="Enter Phonenumber" name="phonenumber" id="NumberSignup" required > 
@@ -115,10 +118,10 @@ button:hover {
           <input type="text" placeholder="Enter PostalCode" name="posctcode" id="PostcodeSignup" required > 
 
           <lable for="Place"><b>Place</b></lable>
-          <input type="text" placeholder="Enter City of residents" name="place" id="PlaceSignup" required > 
+          <input type="text" placeholder="Enter City of residents" name="Place" id="PlaceSignup" required > 
 
-          <lable for="Adress"><b>Adress</b></lable>
-          <input type="text" placeholder="Enter Adress" name="adress" id="AdressSignup" required > 
+          <lable for="Address"><b>Adress</b></lable>
+          <input type="text" placeholder="Enter Address" name="address" id="AddressSignup" required > 
       
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="psw" id="Passwordsignup" required >
@@ -134,12 +137,13 @@ button:hover {
       
           <div class="clearfix">
             <button type="button" onclick=" " class="cancelbtn">Cancel</button>
-            <button type="submit" onclick="Accountadd()"  class="signupbtn">Sign Up</button>
+            <button type="submit" onclick="Accountadd()" class="signupbtn">Sign Up</button>
           </div>
         </div>
-      </form>
-      
- 
     
+      
+      
+ <!--<form action="" style="border:1px solid #ccc">-->
+<!--</form>-->
 </body>
 </html>
