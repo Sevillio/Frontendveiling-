@@ -8,11 +8,12 @@ function eventesten1(){
                 .then (r => r.json())
                 .then (d => verwerkencsharp(d))
             }
-function eventesten2(){
-                fetch("https://localhost:7252/api/Account")
-                .then (r => r.json())
-                .then (d => verwerkencsharp(d))
-            }
+
+function eventesten3(){
+            fetch("https://localhost:7252/api/Bod")
+            .then(r => r.json())
+            .then (d => verwerkencsharp(d))
+}
             
             //function doen(data){
                // console.log(data);
