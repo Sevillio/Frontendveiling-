@@ -3,19 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>Home</title>
 
+	<script >
+	function homeveiling()
+	{
+		fetch("https://localhost:7252/api/Veiling")
+		.then (r => r.json())
+		.then (d => verwerkencsharp(d))
+	}
+	function homeveilingstuk(){
+		fetch("https://localhost:7252/api/Veilingstuk")
+		.then (r => r.json())
+		.then (d => verwerkencsharp(d))
+	}
+	
+	function verwerkencsharp(data){
+		document.getElementById("csharpuitkomst").innerHTML = "";
+		document.getElementById("csharpuitkomst1").innerHTML ="";
+		for(let x =0; x < data.length; x++){
+			document.getElementById("csharpuitkomst").innerHTML += 
+			data[x].OpeningsBod +  ", " +
+			data[x].StartdatumTijd +  ", " +
+			data[x].ClosedatumTijd + ", " +
+			data[x].status + "<br>";
+
+			document.getElementById("csharpuitkomst1").innerHTML += 
+			data[x].Name + ", " +
+			data[x].Beschrijving + ", " +
+			data[x].Categorie + ", " +
+			data[x].Aanbieder + ", " +
+			data[x].Gewicht + ", " +
+			data[x].Lengte + ", " +
+			data[x].Width + ", " +
+			data[x].Hoogte + "<br>"; 
+		}
+	}
+
+	function updateVeilingBackend(newStatus) {
+                const veilingId = gettingid(); 
+            
+                if (veilingId !== null) {
+                    const apiUrl = `https://localhost:7252/api/updateVeilingStatus/${veilingId}`;
+            
+                    fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ status: newStatus }),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to update veiling status. Status: ${response.status}`);
+                        }
+                        console.log('Veiling status updated successfully.');
+                    })
+                    .catch(error => {
+                        console.error('Error updating veiling status:', error);
+                    });
+                }
+            }
+            
+            var veiling = {
+                StartDatumTijd: new Date(""),
+                EndDatumtijd: new Date(""),
+                Veilingstatus: "none",
+            };
+            
+            function updateVeilingstatus(startDatumTijd, endDatumtijd) {
+                var x = new Date().getTime();
+                var startDate = new Date(startDatumTijd).getTime();
+                var closeDate = new Date(endDatumtijd).getTime();
+            
+                if (x < startDate) {
+                    return "scheduled";
+                } else if (x >= startDate && x <= closeDate) {
+                    return "open";
+                } else if (x > closeDate) {
+                    return "closed";
+                }
+            }
+            
+            function checkAndUpdateStatus() {
+                // Add your start and end date parameters here
+                var startDatumTijd = veiling.StartDatumTijd;
+                var endDatumtijd = veiling.EndDatumtijd;
+            
+                var status = updateVeilingstatus(startDatumTijd, endDatumtijd);
+                console.log("Current Status:", status);
+            
+                // You can adjust the interval (in milliseconds) based on your needs
+                var updateInterval = setInterval(function () {
+                    status = updateVeilingstatus(startDatumTijd, endDatumtijd);
+                    document.getElementById("statusDisplay").innerText = "Current Status: " + status;
+                    console.log("Current Status:", status);
+                }, 1000); // Update every 1000 milliseconds (1 second)
+            
+                // Optional: Uncomment the line below if you want to stop the interval after a certain duration
+                // setTimeout(() => clearInterval(updateInterval), 10000); // Stop after 10 seconds (adjust as needed)
+            }
+            
+            // Call the necessary functions
+            getveilingid();
+            checkAndUpdateStatus();
+	
+	function ToonVeiling(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			if(this.readyState == 4){
+				console.log(this.responseText);
+				var AllVeiling = JSON.parse(this.responseText);
+				var eindString ="<table>";
+				for(var x= 0; x < Math.min(5, AllVeiling.length); x++){
+					console.log(AllVeiling);
+					eindString += "<tr><td>"+ AllVeiling[x].openingsBod+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeiling[x].startDatumTijd+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeiling[x].endDatumtijd+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeiling[x].status+"</td></tr>";
+					
+				}
+				eindString +="</table>"
+				document.getElementById("csharpuitkomst").innerHTML = eindString;
+	
+			}
+			
+		}
+		xhr.open("Get","https://localhost:7252/api/Veiling", true);
+		xhr.send();
+	}
+	
+	
+	function ToonVeilingstuk(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			if(this.readyState == 4){
+				console.log(this.responseText);
+				var AllVeilingstuk = JSON.parse(this.responseText);
+				var eindString ="<table>";
+				for(var x= 0; x < AllVeilingstuk.length; x++){
+					console.log(AllVeilingstuk)
+					eindString += "<tr><td>"+ AllVeilingstuk[x].name+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].aanbieder+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].beschrijving+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].categorie+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].gewicht+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].hoogte+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].width+"</td></tr>";
+					eindString += "<tr><td>"+ AllVeilingstuk[x].length+"</td></tr>";
+	
+					
+				}
+				eindString +="</table>"
+				document.getElementById("csharpuitkomst1").innerHTML = eindString;
+	
+			}
+			
+		}
+		xhr.open("Get","https://localhost:7252/api/Veilingstuk",true);
+		xhr.send();
+	}
+	
+	document.addEventListener('DOMContentLoaded', function () {
+		ToonVeiling();
+	});
+	</script>	
+
+<script>
+	function toonVeilingStukken(){
+		console.log("toonVeilingStukken");
+		document.getElementById("veilingstukkenlijst").innerHTML = "hoi";
+		fetch("https://localhost:7252/api/veilingstuk")
+//				fetch("http://20.8.8.232/api/veilingstuk")
+		.then(r => r.json() )
+		.then( d => toonStukkenInDom(d) )
+	}
+	function toonStukkenInDom(data){
+		let dataString = ``
+		for(let x = 0 ;x < data.length;x++){
+			if(x % 4 == 0){
+				dataString += `<div class="row">`
+			}
+			//dataString += `<div class="datastukdiv">${data[x].stukName} - ${data[x].aanbieder} - ${data[x].categorie} - ${data[x].beschrijving}</div>`
+			dataString += `
+			<div  class="col-sm-3" >
+			<div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="images/${data[x].image}" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">${data[x].stukName}</h5>
+				Beschrijving: <p class="card-text" >${data[x].beschrijving}</p>
+				Categorie: <p class="card-text">${data[x].categorie}</p>
+				Lengte: <p class="card-text">${data[x].lengte }</p>
+				Breedte: <p class="card-text">${data[x].width}</p>
+				Hoogte: <p class="card-text">${data[x].hoogte}</p>
+				<a href="#" class="btn btn-primary">${data[x].aanbieder}</a>
+				
+			</div>
+			</div>
+			</div>
+			`
+			if(x % 4 == 3 || x == data.length - 1){
+				dataString += `</div>`
+			}
+			document.getElementById("veilingstukkenlijst").innerHTML = dataString;
+		}
+
+	}
+	document.addEventListener('DOMContentLoaded', function () {
+		toonVeilingStukken();
+});
+function placingbod()
+{
+	window.location.href="Newbod.html"
+}
+</script>
+		
+		<style>
+			.grid-container {
+				display: grid;
+				grid-template-columns: auto auto auto auto;
+				gap: 10px;
+				background-color: #2196F3;
+				padding: 10px;
+			}
+		
+			.grid-container > div {
+				background-color: rgba(255, 255, 255, 0.8);
+				padding: 10px;
+				border: 1px solid #ccc; /* Add a border for better separation */
+			}
+		
+			.grid-container table {
+				width: 100%; /* Make the table fill the entire container */
+				border-collapse: collapse;
+			}
+		
+			.grid-container th, .grid-container td {
+				border: 1px solid #ddd;
+				padding: 8px;
+				text-align: left;
+			}
+		
+			.grid-container th {
+				background-color: #f2f2f2;
+			}
+		</style>
     
 </head>
 <body>
     <!--Navigation bar-->
-		<div id="nav-placeholder"></div>
-		<!--end of Navigation bar-->
-		<H1> Home</H1>
-		<div class="row">
-			<div class="col-xl-6"><a href="veilingen.html">Veilingen</a></div>
-			<div class="col-xl-6"><a href="#">VeilingStukken</a></div>
+	<h1> Home </h1>
+		<div id="nav-placeholder">
+			<ul class="nav justify-content-center">
+				<li class="nav-item">
+				  <a class="nav-link active" aria-current="page" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="Signup.html">Sign up</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="Inlog.html">Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="veilingen.html">Veiling</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="veilingstukfelix.html">Veilingstukken</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="Profile.html">Profile</a>
+				  </li>
+			  </ul>
 		</div>
+		<!--end of Navigation bar-->
+	
     
-</body>
+		<div class="container">
+			<div id="nav-placeholder"></div>
+		<!--end of Navigation bar-->
+		<section class="grid-container">
+			<H1> Veiling </H1>
+			<div class="grid-container" id="csharpuitkomst">
+				<!-- Data from ToonVeiling will be inserted here -->
+			</div>
+			
+
+		</section>
+		<section class="container" style="max-width: 400px;">
+			<H1> Veiling Stukken </H1>
+		</section>
+
+		  <div class="container" id="veilingstukkenlijst"  onclick="placingbod()">Plaats bod >
+		</div>
+		
+
+		
+		
+		</div>
+	
+		</div>
+
+
+		</div>
+		
+	</body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile</title>
+    <script src="js/inlog.js"></script>
+   
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userId = updateAccountPage();
+            window.userId = userId;
+        });
+    </script>
+
+<script src="js/Account.js"></script>
+
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+
+<body>
+    <h1>Profile</h1>
+    <div id="nav-placeholder">
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Signup.html">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Inlog.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="veilingen.html">Veiling</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="veilingstukfelix.html">Veilingstukken</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+            </li>
+          </ul>
+            <!-- Navigation items -->
+        </ul>
+    </div>
+
+    <section>
+        <h1>Welcome to your account</h1>
+        <p>Username: <span id="Name"></span></p>
+        <p>Email: <span id="Email"></span></p>
+        <p>Telefoon: <span id="Telephone"></span></p>
+        <p>Postcode: <span id="Postalcode"></span></p>
+        <p>Place: <span id="place"></span></p>
+        <p>Adress: <span id="adress"></span></p>
+        <!-- Add other user information display as needed -->
+    </section>
+
+    <section>
+        <h1>Edit page</h1>
+        Name: <input type="text" id="Editname">
+        Email: <input type="text" id="Editemail">
+        Telefoon: <input type="text" id="Edittelefoon">
+        Postcode: <input type="text" id="Editpostcode">
+        Place: <input type="text" id="Editplaats">
+        Adress: <input type="text" id="Editadress">
+        Password: <input type="password" id="passwordInputId">
+        <button type="button" onclick="console.log('Button clicked'); changeaccountdetails(gettingid())">Edit</button>
+    </section>
+
+</body>
+
+</html>

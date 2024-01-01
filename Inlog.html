@@ -15,7 +15,8 @@
      crossorigin="anonymous"
      />
      
-     <script src="js/signup.js"></script>
+     
+    
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
      crossorigin="anonymous">
@@ -24,8 +25,12 @@
      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" 
      crossorigin="anonymous">
      </script>
+
+
+
+
+
  
-     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
          
     <title>Login</title>
 
@@ -76,7 +81,7 @@ button:hover {
 }
 
 /* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
+.cancelbtn, .loginbtn {
   float: left;
   width: 50%;
 }
@@ -95,35 +100,44 @@ button:hover {
 
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
+  .cancelbtn, .loginbtn {
      width: 100%;
   }
 }
 </style>
 </head>
 <body>
-   <!-- <form action="https://localhost:7252/api/Account" style="border:1px solid #ccc">-->
+ 
+ <form   onsubmit ="login(event)" style="border:1px solid #ccc"> 
         <div class="container">
           <h1>Login</h1>
           <p>Please log into your account.</p>
           <hr>
-      
-          <label for="Email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" id="EmailLogin" required >
+         
+          <label for="Emaillogin"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="Emaillogin" id="EmailLogin" required >
 
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" id="PasswordLogin" required >
+          <label for="PasswordLogin"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="pswlogin" id="PasswordLogin" required >
+          <div id="loginFeedback"></div>
+
+         
+        
 
           <label>
             <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
           </label>
 
           <div class="clearfix">
-            <button type="button" onclick=" " class="cancelbtn">Cancel</button>
-            <button type="submit" onclick="inlog()" class="signupbtn">Login </button>
+            <button type="button" onclick="cancel()" class="cancelbtn">Cancel</button>
+            <button type="submit" class="loginbtn">Login </button>
           </div>
         </div>
-    <!--</form>-->
+        <script src="js/inlog.js"></script>
+    </form>
+  
+    
+
 
 </body>
 </html>
