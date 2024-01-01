@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .item-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .item-content {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="item-container">
+    <div class="item" onclick="showItemDetails('item1')">
+        Item 1
+        <div class="item-content" id="item1-details">
+            <p>Details about Item 1 go here...</p>
+        </div>
+    </div>
+
+    <div class="item" onclick="showItemDetails('item2')">
+        Item 2
+        <div class="item-content" id="item2-details">
+            <p>Details about Item 2 go here...</p>
+        </div>
+    </div>
+
+    <!-- Add more items as needed -->
+
+</div>
+
+<script>
+    function showItemDetails(itemId) {
+        // Hide all item details
+        var itemContents = document.querySelectorAll('.item-content');
+        itemContents.forEach(function (content) {
+            content.style.display = 'none';
+        });
+
+        // Show the selected item details
+        var selectedItem = document.getElementById(itemId + '-details');
+        selectedItem.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

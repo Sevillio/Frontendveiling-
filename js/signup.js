@@ -47,3 +47,9 @@ function Accountadd()
 
 }
 
+function cancel()
+{
+    window.location.href="Home.html"
+
+}
+
