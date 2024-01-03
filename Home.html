@@ -42,73 +42,7 @@
 		}
 	}
 
-	function updateVeilingBackend(newStatus) {
-                const veilingId = gettingid(); 
-            
-                if (veilingId !== null) {
-                    const apiUrl = `https://localhost:7252/api/updateVeilingStatus/${veilingId}`;
-            
-                    fetch(apiUrl, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ status: newStatus }),
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Failed to update veiling status. Status: ${response.status}`);
-                        }
-                        console.log('Veiling status updated successfully.');
-                    })
-                    .catch(error => {
-                        console.error('Error updating veiling status:', error);
-                    });
-                }
-            }
-            
-            var veiling = {
-                StartDatumTijd: new Date(""),
-                EndDatumtijd: new Date(""),
-                Veilingstatus: "none",
-            };
-            
-            function updateVeilingstatus(startDatumTijd, endDatumtijd) {
-                var x = new Date().getTime();
-                var startDate = new Date(startDatumTijd).getTime();
-                var closeDate = new Date(endDatumtijd).getTime();
-            
-                if (x < startDate) {
-                    return "scheduled";
-                } else if (x >= startDate && x <= closeDate) {
-                    return "open";
-                } else if (x > closeDate) {
-                    return "closed";
-                }
-            }
-            
-            function checkAndUpdateStatus() {
-                // Add your start and end date parameters here
-                var startDatumTijd = veiling.StartDatumTijd;
-                var endDatumtijd = veiling.EndDatumtijd;
-            
-                var status = updateVeilingstatus(startDatumTijd, endDatumtijd);
-                console.log("Current Status:", status);
-            
-                // You can adjust the interval (in milliseconds) based on your needs
-                var updateInterval = setInterval(function () {
-                    status = updateVeilingstatus(startDatumTijd, endDatumtijd);
-                    document.getElementById("statusDisplay").innerText = "Current Status: " + status;
-                    console.log("Current Status:", status);
-                }, 1000); // Update every 1000 milliseconds (1 second)
-            
-                // Optional: Uncomment the line below if you want to stop the interval after a certain duration
-                // setTimeout(() => clearInterval(updateInterval), 10000); // Stop after 10 seconds (adjust as needed)
-            }
-            
-            // Call the necessary functions
-            getveilingid();
-            checkAndUpdateStatus();
+	
 	
 	function ToonVeiling(){
 		var xhr = new XMLHttpRequest();
@@ -145,6 +79,7 @@
 				var eindString ="<table>";
 				for(var x= 0; x < AllVeilingstuk.length; x++){
 					console.log(AllVeilingstuk)
+					eindString += "<tr><td>"+ AllVeilingstuk[x].id+ "<tr><td>";
 					eindString += "<tr><td>"+ AllVeilingstuk[x].name+"</td></tr>";
 					eindString += "<tr><td>"+ AllVeilingstuk[x].aanbieder+"</td></tr>";
 					eindString += "<tr><td>"+ AllVeilingstuk[x].beschrijving+"</td></tr>";
@@ -199,6 +134,8 @@
 				Breedte: <p class="card-text">${data[x].width}</p>
 				Hoogte: <p class="card-text">${data[x].hoogte}</p>
 				<a href="#" class="btn btn-primary">${data[x].aanbieder}</a>
+				<a href="Newbod.html" class="btn btn-primary" onclick="placingbod(${data[x].id})">Plaats bod</a>
+				
 				
 			</div>
 			</div>
@@ -214,10 +151,21 @@
 	document.addEventListener('DOMContentLoaded', function () {
 		toonVeilingStukken();
 });
-function placingbod()
-{
-	window.location.href="Newbod.html"
+
+function placingbod(veilingstukId) {
+    // Store veilingstukId in sessionStorage
+    sessionStorage.setItem('veilingstukId', veilingstukId);
+	console.log("VeilingstukId", veilingstukId );
+
+    // Redirect to Newbod.html
+    // window.location.href = "Newbod.html";
 }
+
+
+
+
+
+
 </script>
 		
 		<style>
@@ -295,7 +243,11 @@ function placingbod()
 			<H1> Veiling Stukken </H1>
 		</section>
 
-		  <div class="container" id="veilingstukkenlijst"  onclick="placingbod()">Plaats bod >
+		<!-- Modify the HTML to pass the veilingstukId when the element is clicked -->
+        <div class="container" id="veilingstukkenlijst" ></div>
+
+
+
 		</div>
 		
 
@@ -307,6 +259,8 @@ function placingbod()
 
 
 		</div>
-		
+		<script>
+			
+		</script>
 	</body>
 </html>

@@ -78,7 +78,7 @@ function gettingid() {
         return userId;
     } else {
         // Redirect to the login page if user information is not found
-        window.location.href = "Login.html";
+        window.location.href = "inlog.html";
         return null; // Return null or handle accordingly
     }
 }

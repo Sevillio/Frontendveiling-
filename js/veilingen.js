@@ -62,6 +62,7 @@ function ToonVeiling(){
                             var eindString ="<table>";
                             for(var x= 0; x < AllVeilingstuk.length; x++){
                                 console.log(AllVeilingstuk)
+                                eindString += "<tr><td>"+ AllVeilingstuk[x].id+"</td></tr>"
                                 eindString += "<tr><td>"+ AllVeilingstuk[x].name+"</td></tr>";
                                 eindString += "<tr><td>"+ AllVeilingstuk[x].aanbieder+"</td></tr>";
                                 eindString += "<tr><td>"+ AllVeilingstuk[x].beschrijving+"</td></tr>";
@@ -95,6 +96,7 @@ function ToonVeiling(){
                     document.getElementById("csharpuitkomst").innerHTML += data[x].StartdatumTijd + "<br>";
                     document.getElementById("csharpuitkomst").innerHTML += data[x].ClosedatumTijd + "<br>";
                     document.getElementById("csharpuitkomst").innerHTML += data[x].status + "<br>";
+                    document.getElementById("csharpuitkomst").innerHTML += data[x].id + "<br>";
                     document.getElementById("csharpuitkomst1").innerHTML += data[x].Name + "<br>";
                     document.getElementById("csharpuitkomst1").innerHTML += data[x].Beschrijving + "<br>";
                     document.getElementById("csharpuitkomst1").innerHTML += data[x].Categorie + "<br>";
