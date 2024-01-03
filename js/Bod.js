@@ -9,25 +9,6 @@ function botdata() {
         .catch(error => console.error('Error in botdata:', error));
 }
 
-function getaccount() {
-    fetch("https://localhost:7252/api/Account")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch user data. Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Store the retrieved user data in sessionStorage
-            sessionStorage.setItem('user', JSON.stringify(data));
-
-        })
-        .catch(error => {
-            console.error('Error in getaccount:', error);
-            // Handle the error (e.g., display an error message to the user)
-        });
-}
-
 function gettingid() {
     // Parse the user object from sessionStorage
     let user = sessionStorage.getItem('user');
@@ -49,43 +30,31 @@ function gettingid() {
     }
 }
 
-async function getveilingid() {
-    try {
-        const response = await fetch("https://localhost:7252/api/Veiling");
-        if (!response.ok) {
-            throw new Error(`Failed to fetch veiling data. Status: ${response.status}`);
-        }
-        const data = await response.json();
-        // Store the retrieved veiling data in sessionStorage
-        sessionStorage.setItem('veilingData', JSON.stringify(data));
-        // You can choose to perform other actions here if needed
-        return data;
-    } catch (error) {
-        console.error('Error in getveilingid:', error);
-        throw error; // Throw the error so that the calling code can handle it
-    }
-}
 
-function gettingveilid() {
+
+
+
+function gettingveilingstukid() {
     // Parse the user object from sessionStorage
-    let VeilingData = sessionStorage.getItem('veilingData');
+    let VeilingstukData = sessionStorage.getItem('veilingstukId');
 
-    if (VeilingData) {
-        veilingdata = JSON.parse(VeilingData);
+    if (VeilingstukData) {
+        VeilingstukData = JSON.parse(VeilingstukData);
 
         // Extract userId from the user object
-        const veilingId = parseInt(VeilingData.veilingId, 10);
+        const veilingstukId = parseInt(VeilingstukData.veilingstukId, 10);
 
-        console.log("User ID in gettingid:", veilingId);
+        console.log("veiling ID in gettingid:", veilingstukId);
 
         // Return the userId
-        return veilingId;
+        return veilingstukId;
     } else {
         // Redirect to the login page if user information is not found
         window.location.href = "Login.html";
         return null; // Return null or handle accordingly
     }
 }
+
 
 
 
@@ -157,7 +126,7 @@ function bodchecker(veiling, bod) {
         MinimumBod = 1;
     } else {
         // Update bod.Prijs based on the latest Laatsebod
-        Laatsebod = bod.Prijs; // Access bod.Prijs directly
+        Laatsebod = bod.Prijs;
         MinimumBod = parseInt(Laatsebod * 1.15);
         if (bod.Prijs > MinimumBod) {
             Laatsebod = acceptBid(bod);
